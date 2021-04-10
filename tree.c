@@ -131,8 +131,7 @@ void get_username(char* path) {
 	printf("USERNAME : %s\n",pwuser->pw_name);
 }
 
-void print_specified_path(char *basePath)
-{
+void print_specified_path(char *basePath) {
     char path[10000];
     struct dirent *dp;
     DIR *dir = opendir(basePath);
@@ -147,6 +146,33 @@ void print_specified_path(char *basePath)
         {
             printf("%s\n", dp->d_name);
             strcpy(path, basePath);
+            strcat(path, "/");
+            strcat(path, dp->d_name);
+
+            print_specified_path(path);
+        }
+    }
+
+    closedir(dir);
+}
+
+void file_time_modified(char *basePath) {
+    char path[10000];
+    struct dirent *dp;
+    DIR *dir = opendir(basePath);
+
+
+    if (!dir)
+        return;
+
+    while ((dp = readdir(dir)) != NULL)
+    {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
+        {
+            printf("%s - ", dp->d_name);
+            strcpy(path, basePath);
+			getFileCreationTime(path);
+			printf("\n");
             strcat(path, "/");
             strcat(path, dp->d_name);
 

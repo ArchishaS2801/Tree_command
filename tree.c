@@ -156,6 +156,7 @@ void print_specified_path(char *basePath) {
     closedir(dir);
 }
 
+
 void file_time_modified(char *basePath) {
     char path[10000];
     struct dirent *dp;
@@ -189,3 +190,37 @@ void getFileCreationTime(char *path) {
     printf("Last modified time: %s", ctime(&attr.st_mtime));
 }
 
+
+long file_size(char* path) {
+
+        struct stat stats;
+        stat(path, &stats);
+        return stats.st_size;
+}
+
+
+void print_file_size(char *basePath) {
+    char path[10000];
+    struct dirent *dp;
+    DIR *dir = opendir(basePath);
+
+
+    if (!dir)
+        return;
+
+    while ((dp = readdir(dir)) != NULL)
+    {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
+        {
+            printf("%s - %ld", dp->d_name,file_size(path));
+            strcpy(path, basePath);
+			printf("\n");
+            strcat(path, "/");
+            strcat(path, dp->d_name);
+
+            print_specified_path(path);
+        }
+    }
+
+    closedir(dir);
+}

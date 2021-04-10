@@ -40,6 +40,7 @@ int main(int argc,char *argv[])
     }
 
     if(argc >= 2 && strcmp(argv[1],"-Ft") == 0){
+
           printf("Enter path to list files: ");
           scanf("%s", name);
           file_time_modified(name);
@@ -70,9 +71,14 @@ int main(int argc,char *argv[])
 
     }
 
+    if(argc >= 2 && strcmp(argv[1],"-s") == 0){
 
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          print_file_size(name);
+          
 
-
+    }
 
     return 0;
 

@@ -16,6 +16,7 @@ int main()
     print_specified_path(name);
     get_username(name);
     printf("\n");
+    getFileCreationTime(name);
     return 0;
 
 }

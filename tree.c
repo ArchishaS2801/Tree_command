@@ -5,7 +5,7 @@
 #include<sys/stat.h>
 #include<pwd.h>
 #include "tree.h"
-
+#include <time.h>
 
 //to create new node in tree
 node* create_node(char* n) {
@@ -33,8 +33,8 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 
 	//struct dirent contains various members which I have used in the code d_type,d_name etc
 	struct dirent *dr = NULL;
-	tree *root,*temp ,*temp1 ;
-	root = temp = temp1;
+	tree *root,*temp,*temp1 ;
+	root = temp = temp1 = NULL;
 	char *name = (char *)malloc(sizeof(char)*MAX);//ALLOCATING SPACE FOR NAME
 
 	//Checks to see if directory exists if doesnt return
@@ -45,11 +45,11 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 	}
 
 	//While loop runs until all contents of the directory have been checked
-	while((dr=readdir(dir)) != NULL){
+	while((dr = readdir(dir)) != NULL){
 			//Every directory has two directories called "." and "..", which stand
 			//for present working directory and root directory which cannot be parsed further
 			if(strcmp((dr->d_name),".")!=0 && strcmp((dr->d_name),"..") != 0) {
-				temp=create_node(dr->d_name);
+				temp = create_node(dr->d_name);
 			}
 			else {
 				temp=NULL;
@@ -90,9 +90,8 @@ return (root);
 
 void print_tree(node *start) {
 		char *s="|    ",*s1="|----";
-		int i;
-		node *temp=start;
-		if(start==NULL)
+		node *temp = start;
+		if(start == NULL)
 			return;
 
 
@@ -100,9 +99,9 @@ void print_tree(node *start) {
 		if(count > max)
 			max=count;
 		printf("\n");
-		for(i=0;i<(count-1);i++)
+		for(int i = 0;i<(count-1);i++)
 			printf("%s",s);
-		if(count>0)
+		if(count > 0)
 			printf("%s",s1);
 
 		printf("level:%d  %s",temp->level,temp->name);
@@ -110,13 +109,13 @@ void print_tree(node *start) {
 		//Checks if it's a directory
 		if(temp->isdir==1)
 		{
-			dir_in_path+=1;
+			dir_in_path += 1;
 			count++;
 			print_tree(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path+=1;
+		files_in_path += 1;
 		print_tree(temp->nextFile);
 
 }
@@ -156,5 +155,11 @@ void print_specified_path(char *basePath)
     }
 
     closedir(dir);
+}
+
+void getFileCreationTime(char *path) {
+    struct stat attr;
+    stat(path, &attr);
+    printf("Last modified time: %s", ctime(&attr.st_mtime));
 }
 

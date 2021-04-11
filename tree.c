@@ -455,6 +455,27 @@ void print_tree_color(node *start) {
 
 		}
 
+		else if(strstr(temp->name,".html") || strstr(temp->name,".pdf") || strstr(temp->name,".xls") || 
+
+		strstr(temp->name,".ods") || strstr(temp->name,".ppt") || strstr(temp->name,".pptx") ||
+
+		strstr(temp->name,".txt") || strstr(temp->name,"jpg") || strstr(temp->name,".png") || 
+
+		strstr(temp->name,".svg") || strstr(temp->name,".doc") || strstr(temp->name,".docx") || 
+
+		strstr(temp->name,".class") || strstr(temp->name,".css") || strstr(temp->name,".json") 
+		
+		|| strstr(temp->name,".iml") || strstr(temp->name,".bash") || strstr(temp->name,".o")
+		
+		|| strstr(temp->name,".layout") || strstr(temp->name,".cbp") || strstr(temp->name,".depend")
+		
+		|| strstr(temp->name,".ts")){
+
+			printf("%s%s\n",ANSI_COLOR_GREEN,temp->name);
+		}
+
+
+
 		else{
 			printf("%s%s\n",ANSI_COLOR_BLUE,temp->name);
 		}

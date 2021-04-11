@@ -6,6 +6,8 @@ typedef struct node{
     struct node *nextFile;
     int level;
     char *username;
+    unsigned long filesize;
+    char *timeModified;
 }node;
 
 typedef node tree;
@@ -16,12 +18,16 @@ tree* create_tree(char *root);
 void print_tree(node *start);
 void get_username(char* path);
 void print_specified_path(char *basePath);
-void getFileCreationTime(char *path);
+char *getFileCreationTime(char *path);
 void file_time_modified(char *basePath);
 long file_size(char* path);
 void print_file_size(char *path);
-void print_tree_file_indent(node *start,char *basePath);
-//void print_tree_indentation()
+void printTreeWithFileSize(node *start);
+void printTreeWithLastModified(node *start);
+void printDirectories(node *start);
+void printDirectoriesWithoutIndentation(char *basePath);
+void listdir(node *start, int indent);
+void print_tree_color(node *start);
 int count;
 int max;
 int dir_in_path;

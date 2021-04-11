@@ -45,7 +45,7 @@ int main(int argc,char *argv[])
 
     if(argc >= 2 && strcmp(argv[1],"-t") == 0){
 
-          getFileCreationTime(name);
+          printf("%s",getFileCreationTime(name));
 
     }
 
@@ -61,11 +61,11 @@ int main(int argc,char *argv[])
      if(argc >= 2 && strcmp(argv[1],"-filesize") == 0){
 
           node *start=create_node(".");
-	      start->isdir=1;
+	    start->isdir=1;
           printf("Enter path to list files: ");
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
-          print_tree_file_indent(start,name);
+          printTreeWithFileSize(start);
           
 
     }
@@ -81,6 +81,8 @@ int main(int argc,char *argv[])
         printf("\n-t : prints the last modified of the current path \n");
         printf("\n-v : prints the version of the tree\n");
         printf("\n-help : prints the help section\n\n");
+        printf("\n-time_i : prints all the subdirectories and folders with indentation and last modified\n");
+        printf("\n-d : prints only directories");
 
 
     }
@@ -101,6 +103,35 @@ int main(int argc,char *argv[])
           print_file_size(name);
           
 
+    }
+
+    if(argc >= 2 && strcmp(argv[1],"-time_i") == 0){
+
+          node *start=create_node(".");
+	      start->isdir=1;
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+          printTreeWithLastModified(start);
+          
+
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-d") == 0){
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          printDirectoriesWithoutIndentation(name);
+          //listdir(start, 0);
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-c") == 0){
+         
+          node *start=create_node(".");
+	    start->isdir=1;
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+	    print_tree_color(start);
     }
 
     return 0;

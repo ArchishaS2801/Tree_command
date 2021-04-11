@@ -225,3 +225,58 @@ void print_file_size(char *basePath) {
 
     closedir(dir);
 }
+
+void print_tree_file_indent(node *start,char *basePath) {
+		char *s="|    ",*s1="_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level=count;
+		if(count > max)
+			max=count;
+		printf("\n");
+		for(int i = 0;i<(count-1);i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+
+		printf("%s : ",temp->name);
+
+		char path[10000];
+        struct dirent *dp;
+        DIR *dir = opendir(basePath);
+
+
+    if (!dir)
+        return;
+
+    while ((dp = readdir(dir)) != NULL)
+    {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
+        {
+            printf("%ld ", file_size(path));
+            strcpy(path, basePath);
+            strcat(path, "/");
+            strcat(path, dp->d_name);
+        }
+    }
+
+
+		//Checks if it's a directory
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_tree(temp->nextDirectory);
+			count--;
+		}
+
+
+   
+		files_in_path += 1;
+		print_tree(temp->nextFile);
+		closedir(dir);
+
+}

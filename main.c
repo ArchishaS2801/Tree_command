@@ -24,7 +24,7 @@ int main(int argc,char *argv[])
 
 
     }
-    
+
     if(argc >=2 && strcmp(argv[1],"-i") == 0){
 
     node *start=create_node(".");
@@ -57,6 +57,19 @@ int main(int argc,char *argv[])
           
 
     }
+
+     if(argc >= 2 && strcmp(argv[1],"-filesize") == 0){
+
+          node *start=create_node(".");
+	      start->isdir=1;
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+          print_tree_file_indent(start,name);
+          
+
+    }
+
 
     if(argc >=2 && strcmp(argv[1],"-help") == 0){
 

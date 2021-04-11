@@ -40,7 +40,7 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 	//Checks to see if directory exists if doesnt return
 	if(dir == NULL)
 	{
-		printf("Error in opening file");
+		//printf("Error in opening file");
 		return NULL;
 	}
 
@@ -84,12 +84,12 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 
 	}
 
-return (root);
+return root;
 }
 
 
 void print_tree(node *start) {
-		char *s="|    ",*s1="|----";
+		char *s="|    ",*s1="_____";
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -104,7 +104,7 @@ void print_tree(node *start) {
 		if(count > 0)
 			printf("%s",s1);
 
-		printf("level:%d  %s",temp->level,temp->name);
+		printf("%s",temp->name);
 
 		//Checks if it's a directory
 		if(temp->isdir==1)
@@ -132,6 +132,7 @@ void get_username(char* path) {
 }
 
 void print_specified_path(char *basePath) {
+	
     char path[10000];
     struct dirent *dp;
     DIR *dir = opendir(basePath);

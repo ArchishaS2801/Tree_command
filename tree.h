@@ -20,6 +20,7 @@ void getFileCreationTime(char *path);
 void file_time_modified(char *basePath);
 long file_size(char* path);
 void print_file_size(char *path);
+//void print_tree_indentation()
 int count;
 int max;
 int dir_in_path;

@@ -83,6 +83,8 @@ int main(int argc,char *argv[])
         printf("\n-help : prints the help section\n\n");
         printf("\n-time_i : prints all the subdirectories and folders with indentation and last modified\n");
         printf("\n-d : prints only directories");
+        printf("\n-colorNoIndentation : Prints without indentation and colors according to extension");
+        printf("\n-c : Prints all files and directories in tree format with colors according to extension\n");
 
 
     }
@@ -132,6 +134,13 @@ int main(int argc,char *argv[])
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_tree_color(start);
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-colorNoIndentation") == 0){
+         
+          printf("Enter path to list files: ");
+          scanf("%s", name);
+          print_color_without_indentation(name);
     }
 
     return 0;

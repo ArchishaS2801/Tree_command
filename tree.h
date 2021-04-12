@@ -29,3 +29,6 @@ void printDirectoriesWithoutIndentation(char *basePath);
 void listdir(node *start, int indent);
 void print_tree_color(node *start);
 void print_color_without_indentation(char *basePath);
+void print_tree_media(node *start);
+void print_tree_compressed(node *start);
+void print_tree_programs(node *start);

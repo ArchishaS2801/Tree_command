@@ -85,6 +85,9 @@ int main(int argc,char *argv[])
         printf("\n-d : prints only directories");
         printf("\n-colorNoIndentation : Prints without indentation and colors according to extension");
         printf("\n-c : Prints all files and directories in tree format with colors according to extension\n");
+        printf("\n-mediaFiles : Prints all the media files in a tree hierchial format\n");
+        printf("\n-compressedFiles : Print all the compressed files in hierchial manner\n");
+        printf("\n-programFiles : Prints all the program files in tree hierchial structure\n");
 
 
     }
@@ -141,6 +144,39 @@ int main(int argc,char *argv[])
           printf("Enter path to list files: ");
           scanf("%s", name);
           print_color_without_indentation(name);
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-mediaFiles") == 0){
+
+          node *start=create_node(".");
+	    start->isdir=1;
+          printf("Enter the path to list all files : ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+	    print_tree_media(start);
+          
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-compressedFiles") == 0){
+
+          node *start=create_node(".");
+	    start->isdir=1;
+          printf("Enter the path to list all files : ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+	    print_tree_compressed(start);
+          
+    }
+
+    if(argc >=2 && strcmp(argv[1],"-programFiles") == 0){
+
+          node *start=create_node(".");
+	    start->isdir=1;
+          printf("Enter the path to list all files : ");
+          scanf("%s", name);
+          start->nextDirectory = create_tree(name);
+	    print_tree_programs(start);
+          
     }
 
     return 0;

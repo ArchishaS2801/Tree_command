@@ -319,8 +319,6 @@ void printTreeWithLastModified(node *start) {
 		node *temp = start;
 		if(start == NULL)
 			return;
-
-
 		temp->level=count;
 		if(count > max)
 			max = count;
@@ -329,16 +327,12 @@ void printTreeWithLastModified(node *start) {
 			printf("%s",s);
 		if(count > 0)
 			printf("%s",s1);
-
 		struct dirent *dp;
         DIR *dir = opendir(temp->name);
 		dp = readdir(dir);
-
 		if(dp->d_type == DT_DIR){
-
 		printf("%s  ",temp->name);
 		}
-
 		//Checks if it's a directory
 		if(temp->isdir == 1)
 		{
@@ -347,11 +341,9 @@ void printTreeWithLastModified(node *start) {
 			printDirectories(temp->nextDirectory);
 			count--;
 		}
-
 		files_in_path += 1;
 		printDirectories(temp->nextFile);
 		closedir(dir);
-
 }*/
 
 
@@ -613,3 +605,155 @@ void print_color_without_indentation(char *basePath) {
     closedir(dir);
 }
 
+
+
+void print_tree_media(node* start){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level=count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+        if(strstr(temp->name,"jpg") || strstr(temp->name,".png") || strstr(temp->name,"jpeg") ||
+
+		strstr(temp->name,".aif") || strstr(temp->name,".cda") || strstr(temp->name,".mid") || 
+
+		strstr(temp->name,".mp3") || strstr(temp->name,".mp4") || strstr(temp->name,".ogg") ||
+
+		strstr(temp->name,".wav") || strstr(temp->name,".wma") || strstr(temp->name,".wpl") ) 
+
+		{
+
+			printf("%s%s\n",ANSI_COLOR_GREEN,temp->name);
+		}
+		else{
+			printf("%s",ANSI_COLOR_RED);
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_tree_media(temp->nextDirectory);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_tree_media(temp->nextFile);
+
+
+}
+
+
+
+void print_tree_compressed(node *start){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level=count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+      if(strstr(temp->name,".7z") || strstr(temp->name,".arj") || strstr(temp->name,".deb") || 
+
+		strstr(temp->name,".pkg") || strstr(temp->name,".rar") || strstr(temp->name,".rpm") ||
+
+		strstr(temp->name,".tar.gz") || strstr(temp->name,".z") || strstr(temp->name,".zip") )	{
+
+			printf("%s%s\n",ANSI_COLOR_YELLOW,temp->name);
+
+		}
+		else{
+			printf("%s",ANSI_COLOR_MAGENTA);
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_tree_compressed(temp->nextDirectory);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_tree_compressed(temp->nextFile);
+
+
+
+}
+
+
+void print_tree_programs(node *start){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level=count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+      if(strstr(temp->name,".class") || strstr(temp->name,".css") || strstr(temp->name,".json") 
+		
+		|| strstr(temp->name,".iml") || strstr(temp->name,".bash") || strstr(temp->name,".o")
+		
+		|| strstr(temp->name,".layout") || strstr(temp->name,".cbp") || strstr(temp->name,".depend")
+		
+		|| strstr(temp->name,".ts") || strstr(temp->name,".c") || strstr(temp->name,".h") || 
+		
+		strstr(temp->name,".cpp") || strstr(temp->name,".java") || strstr(temp->name,".php") ||
+		
+		strstr(temp->name,".py") || strstr(temp->name,".sh") || strstr(temp->name,".swift") || 
+		
+		strstr(temp->name,".vb") || strstr(temp->name,".js" )){
+
+			printf("%s%s\n",ANSI_COLOR_BLUE,temp->name);
+
+		}
+		else{
+			printf("%s",ANSI_COLOR_RESET);
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_tree_programs(temp->nextDirectory);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_tree_programs(temp->nextFile);
+
+
+
+}

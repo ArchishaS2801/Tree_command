@@ -27,8 +27,6 @@ node* create_node(char* n) {
 	temp->nextDirectory = NULL;
 	temp->nextFile = NULL;
 	temp->filesize = file_size(n);
-	temp->timeModified = (char *)malloc(sizeof(char)*1000);//ALLOCATING SPACE FOR Time
-	strcpy(temp->timeModified,getFileCreationTime(n));
     return temp;
 }
 
@@ -92,9 +90,11 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 
 			else{
 				temp->isdir = 0;
+				
 				temp->nextDirectory = NULL;
 
 			}
+		
 
 			temp1 = temp;
 
@@ -120,10 +120,11 @@ void print_tree(node *start) {
 			printf("%s",s);
 		if(count > 0)
 			printf("%s",s1);
+			
 
 		printf("%s  ",temp->name);
 		
-
+       
 		//Checks if it's a directory
 		if(temp->isdir==1)
 		{
@@ -169,206 +170,6 @@ void print_specified_path(char *basePath) {
             strcat(path, dp->d_name);
 
             print_specified_path(path);
-        }
-    }
-
-    closedir(dir);
-}
-
-
-void file_time_modified(char *basePath) {
-    char path[10000];
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
-    if (!dir)
-        return;
-
-    while ((dp = readdir(dir)) != NULL)
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
-        {
-            printf("%s - ", dp->d_name);
-            strcpy(path, basePath);
-			printf("%s ",getFileCreationTime(path));
-			printf("\n");
-            strcat(path, "/");
-            strcat(path, dp->d_name);
-
-            print_specified_path(path);
-        }
-    }
-
-    closedir(dir);
-}
-
-char *getFileCreationTime(char *path) {
-    struct stat attr;
-    stat(path, &attr);
-    return ctime(&attr.st_mtime);
-}
-
-
-long file_size(char* path) {
-
-        struct stat stats;
-        stat(path, &stats);
-        return stats.st_size;
-}
-
-
-void print_file_size(char *basePath) {
-    char path[10000];
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
-    if (!dir)
-        return;
-
-    while ((dp = readdir(dir)) != NULL)
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
-        {
-            printf("%s - %ld", dp->d_name,file_size(path));
-            strcpy(path, basePath);
-			printf("\n");
-            strcat(path, "/");
-            strcat(path, dp->d_name);
-            print_specified_path(path);
-        }
-    }
-
-    closedir(dir);
-}
-
-void printTreeWithFileSize(node *start) {
-		char *s="|    ",*s1="|_____";
-		node *temp = start;
-		if(start == NULL)
-			return;
-
-
-		temp->level=count;
-		if(count > max)
-			max = count;
-		printf("\n");
-		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
-		if(count > 0)
-			printf("%s",s1);
-
-		printf("%s  ",temp->name);
-		printf("%ld  ",temp->filesize);
-		
-
-		//Checks if it's a directory
-		if(temp->isdir==1)
-		{
-			
-			dir_in_path += 1;
-			count++;
-			printTreeWithFileSize(temp->nextDirectory);
-			count--;
-		}
-
-		files_in_path += 1;
-		printTreeWithFileSize(temp->nextFile);
-
-}
-
-
-void printTreeWithLastModified(node *start) {
-		char *s="|    ",*s1="|_____";
-		node *temp = start;
-		if(start == NULL)
-			return;
-
-
-		temp->level=count;
-		if(count > max)
-			max = count;
-		printf("\n");
-		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
-		if(count > 0)
-			printf("%s",s1);
-
-		printf("%s  ",temp->name);
-		printf("%s  ",temp->timeModified);
-		
-
-		//Checks if it's a directory
-		if(temp->isdir==1)
-		{
-			dir_in_path += 1;
-			count++;
-			printTreeWithLastModified(temp->nextDirectory);
-			count--;
-		}
-
-		files_in_path += 1;
-		printTreeWithLastModified(temp->nextFile);
-
-}
-
-
-/*void printDirectories(node *start) {
-		char *s="|    ",*s1="|_____";
-		node *temp = start;
-		if(start == NULL)
-			return;
-		temp->level=count;
-		if(count > max)
-			max = count;
-		printf("\n");
-		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
-		if(count > 0)
-			printf("%s",s1);
-		struct dirent *dp;
-        DIR *dir = opendir(temp->name);
-		dp = readdir(dir);
-		if(dp->d_type == DT_DIR){
-		printf("%s  ",temp->name);
-		}
-		//Checks if it's a directory
-		if(temp->isdir == 1)
-		{
-			dir_in_path += 1;
-			count++;
-			printDirectories(temp->nextDirectory);
-			count--;
-		}
-		files_in_path += 1;
-		printDirectories(temp->nextFile);
-		closedir(dir);
-}*/
-
-
-void printDirectoriesWithoutIndentation(char *basePath) {
-	
-    char path[10000];
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
-    if (!dir)
-        return;
-
-    while ((dp = readdir(dir)) != NULL)
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0 && dp->d_type == 4)
-        {
-			
-				printf("%s ",dp->d_name);
-				strcpy(path, basePath);
-                strcat(path, "/");
-                strcat(path, dp->d_name);
-                print_specified_path(path);
-			
-
         }
     }
 
@@ -505,7 +306,7 @@ void print_color_without_indentation(char *basePath) {
     if (!dir)
         return;
 
-    while ((dp = readdir(dir)) != NULL)
+    while ((dp = readdir(dir)) != NULL )
     {
         if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
         {
@@ -665,7 +466,7 @@ void print_tree_compressed(node *start){
 			return;
 
 
-		temp->level=count;
+		temp->level = count;
 
 		if(count > max)
 			max = count;
@@ -736,11 +537,12 @@ void print_tree_programs(node *start){
 		
 		strstr(temp->name,".vb") || strstr(temp->name,".js" )){
 
-			printf("%s%s\n",ANSI_COLOR_BLUE,temp->name);
+			printf("%s%s",ANSI_COLOR_RESET,temp->name);
+			
 
 		}
 		else{
-			printf("%s",ANSI_COLOR_RESET);
+			printf("%s\n",ANSI_COLOR_BLUE);
 		}
 
 		if(temp->isdir==1)
@@ -753,6 +555,91 @@ void print_tree_programs(node *start){
 
 		files_in_path += 1;
 		print_tree_programs(temp->nextFile);
+
+
+
+}
+
+long file_size(char* path) {
+
+        struct stat stats;
+        stat(path, &stats);
+        return stats.st_size;
+}
+
+
+void print_file_size(char *basePath) {
+	
+    char path[10000];
+    struct dirent *dp;
+    DIR *dir = opendir(basePath);
+
+
+    if (!dir)
+        return;
+
+    while ((dp = readdir(dir)) != NULL)
+    {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
+        {
+            printf("%s%s ", ANSI_COLOR_RESET,dp->d_name);
+            strcpy(path, basePath);
+            strcat(path, "/");
+            strcat(path, dp->d_name);
+			if(dp->d_type == DT_REG){
+				
+				printf(": %s%ld bytes  ",ANSI_COLOR_BLUE,file_size(path));
+			}
+			else{
+				printf(" ");
+			}
+			printf("\n");
+
+            print_file_size(path);
+        }
+    }
+
+    closedir(dir);
+}
+
+
+void print_match_pattern(node *start,char *pattern){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level = count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+      if(strstr(temp->name,pattern ))	{
+
+			printf("%s%s\n",ANSI_COLOR_RESET,temp->name);
+
+		}
+		else{
+			printf("%s",ANSI_COLOR_MAGENTA);
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_match_pattern(temp->nextDirectory,pattern);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_match_pattern(temp->nextFile,pattern);
 
 
 

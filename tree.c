@@ -27,6 +27,7 @@ node* create_node(char* n) {
 	temp->nextDirectory = NULL;
 	temp->nextFile = NULL;
     return temp;
+
 }
 
 /*Function to create the directory tree, which is called recursively.
@@ -59,7 +60,7 @@ node* create_tree(char *root_name)//here root name gets the current directory na
 	}
 
 	//While loop runs until all contents of the directory have been checked
-	while((dr = readdir(dir)) != NULL){
+	while((dr = readdir(dir)) != NULL) {
 			//Every directory has two directories called "." and "..", which stand
 			//for present working directory and root directory which cannot be parsed further
 			if(strcmp((dr->d_name),".")!=0 && strcmp((dr->d_name),"..") != 0) {
@@ -75,21 +76,20 @@ node* create_tree(char *root_name)//here root name gets the current directory na
 
 			}
 
-			else	{
+			else {
 				root = temp;
 			}
 
 			//Checking if it's a directory
-			if((dr->d_type) == DT_DIR){//if the dr type is directory make isdir 1 and make name root_name
+			if((dr->d_type) == DT_DIR) {//if the dr type is directory make isdir 1 and make name root_name
 				temp->isdir=1;
 				strcpy(name,root_name);
 				temp->nextDirectory = create_tree((strcat((strcat(name,"/")),dr->d_name)));
 
 			}
 
-			else{
+			else {
 				temp->isdir = 0;
-				
 				temp->nextDirectory = NULL;
 
 			}
@@ -105,28 +105,32 @@ return root;
 
 
 void print_tree(node *start) {
-		char *s="|    ",*s1="|_____";
+
 		node *temp = start;
+
 		if(start == NULL)
 			return;
 
 
 		temp->level=count;
+
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
+
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 			
 
 		printf("%s  ",temp->name);
 		
        
 		//Checks if it's a directory
-		if(temp->isdir==1)
-		{
+		if(temp->isdir == 1) {
 			num_dir += 1;
 			count++;
 			print_tree(temp->nextDirectory);
@@ -153,6 +157,7 @@ void get_username(char* path) {
 void print_no_indentation(char *basePath) {
 	
     char path[10000];
+
     struct dirent *dp;
     DIR *dir = opendir(basePath);
 
@@ -160,15 +165,13 @@ void print_no_indentation(char *basePath) {
     if (!dir)
         return;
 
-    while ((dp = readdir(dir)) != NULL)
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
-        {
+    while ((dp = readdir(dir)) != NULL) {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0) {
+
             printf("%s\n", dp->d_name);
             strcpy(path, basePath);
             strcat(path, "/");
             strcat(path, dp->d_name);
-
             print_no_indentation(path);
         }
     }
@@ -178,7 +181,7 @@ void print_no_indentation(char *basePath) {
 
 
 void print_tree_color(node *start) {
-		char *s="|    ",*s1="|_____";
+		
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -190,9 +193,9 @@ void print_tree_color(node *start) {
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
         //Audio file format extension color = RESET
 		if(strstr(temp->name,".aif") || strstr(temp->name,".cda") || strstr(temp->name,".mid") || 
@@ -300,7 +303,7 @@ void print_tree_color(node *start) {
 
 void print_tree_media(node* start){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -312,9 +315,9 @@ void print_tree_media(node* start){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
         if(strstr(temp->name,"jpg") || strstr(temp->name,".png") || strstr(temp->name,"jpeg") ||
 
@@ -350,7 +353,7 @@ void print_tree_media(node* start){
 
 void print_tree_compressed(node *start){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -362,9 +365,9 @@ void print_tree_compressed(node *start){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
       if(strstr(temp->name,".7z") || strstr(temp->name,".arj") || strstr(temp->name,".deb") || 
 
@@ -397,7 +400,7 @@ void print_tree_compressed(node *start){
 
 void print_tree_programs(node *start){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -409,9 +412,9 @@ void print_tree_programs(node *start){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
       if(strstr(temp->name,".class") || strstr(temp->name,".css") || strstr(temp->name,".json") 
 		
@@ -453,7 +456,7 @@ void print_tree_programs(node *start){
 
 void print_match_pattern(node *start,char *pattern){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -465,9 +468,9 @@ void print_match_pattern(node *start,char *pattern){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 			
 		
       if(strstr(temp->name,pattern ) )	{
@@ -499,7 +502,7 @@ void print_match_pattern(node *start,char *pattern){
 
 void print_does_not_match_pattern(node *start,char *pattern){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -511,9 +514,9 @@ void print_does_not_match_pattern(node *start,char *pattern){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
       if(!strstr(temp->name,pattern ))	{
 
@@ -542,7 +545,7 @@ void print_does_not_match_pattern(node *start,char *pattern){
 
 void print_directories(node *start){
 
-	char *s="|    ",*s1="|_____";
+	
 		node *temp = start;
 		if(start == NULL)
 			return;
@@ -554,9 +557,9 @@ void print_directories(node *start){
 			max = count;
 		printf("\n");
 		for(int i = 0;i < count-1;i++)
-			printf("%s",s);
+			printf("|   ");
 		if(count > 0)
-			printf("%s",s1);
+			printf("|_____");
 		
       if(temp->isdir)	{
 

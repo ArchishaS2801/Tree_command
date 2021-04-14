@@ -183,6 +183,7 @@ void print_no_indentation(char *basePath) {
 void print_tree_color(node *start) {
 		
 		node *temp = start;
+		
 		if(start == NULL)
 			return;
 
@@ -191,9 +192,12 @@ void print_tree_color(node *start) {
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
@@ -285,8 +289,7 @@ void print_tree_color(node *start) {
 
 		
 		//Checks if it's a directory
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_tree_color(temp->nextDirectory);
@@ -305,6 +308,7 @@ void print_tree_media(node* start){
 
 	
 		node *temp = start;
+
 		if(start == NULL)
 			return;
 
@@ -313,9 +317,12 @@ void print_tree_media(node* start){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
@@ -335,8 +342,7 @@ void print_tree_media(node* start){
 			printf("%s",ANSI_COLOR_RED);
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_tree_media(temp->nextDirectory);
@@ -355,6 +361,7 @@ void print_tree_compressed(node *start){
 
 	
 		node *temp = start;
+
 		if(start == NULL)
 			return;
 
@@ -363,9 +370,12 @@ void print_tree_compressed(node *start){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
@@ -382,8 +392,7 @@ void print_tree_compressed(node *start){
 			printf("%s",ANSI_COLOR_MAGENTA);
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_tree_compressed(temp->nextDirectory);
@@ -410,9 +419,12 @@ void print_tree_programs(node *start){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
@@ -434,12 +446,11 @@ void print_tree_programs(node *start){
 			
 
 		}
-		else{
+		else {
 			printf("%s\n",ANSI_COLOR_BLUE);
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_tree_programs(temp->nextDirectory);
@@ -458,6 +469,7 @@ void print_match_pattern(node *start,char *pattern){
 
 	
 		node *temp = start;
+
 		if(start == NULL)
 			return;
 
@@ -466,9 +478,12 @@ void print_match_pattern(node *start,char *pattern){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 			
@@ -483,8 +498,7 @@ void print_match_pattern(node *start,char *pattern){
 			printf("%s",ANSI_COLOR_MAGENTA);
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_match_pattern(temp->nextDirectory,pattern);
@@ -512,9 +526,12 @@ void print_does_not_match_pattern(node *start,char *pattern){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
@@ -527,8 +544,7 @@ void print_does_not_match_pattern(node *start,char *pattern){
 			printf("%s",ANSI_COLOR_MAGENTA);
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
 			num_dir += 1;
 			count++;
 			print_does_not_match_pattern(temp->nextDirectory,pattern);
@@ -547,6 +563,7 @@ void print_directories(node *start){
 
 	
 		node *temp = start;
+
 		if(start == NULL)
 			return;
 
@@ -555,20 +572,23 @@ void print_directories(node *start){
 
 		if(count > max)
 			max = count;
+
 		printf("\n");
+
 		for(int i = 0;i < count-1;i++)
 			printf("|   ");
+
 		if(count > 0)
 			printf("|_____");
 		
-      if(temp->isdir)	{
+      if(temp->isdir) {
 
 			printf("%s \n",temp->name);
 
 		}
 
-		if(temp->isdir==1)
-		{
+		if(temp->isdir==1) {
+
 			num_dir += 1;
 			count++;
 			print_directories(temp->nextDirectory);

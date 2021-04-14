@@ -22,22 +22,17 @@ int num_files = 0;
 node* create_node(char* n) {
 
 	node* temp = (node*)malloc(sizeof(node));//allocating space
-	temp->name = n;
-	temp->nextDirectory = NULL;
-	temp->nextFile = NULL;
-    return temp;
+	temp->name = n;//setting the nodes name value as the n that is passed
+	temp->nextDirectory = NULL;//setting next directory null
+	temp->nextFile = NULL;//setting next file as null
+    return temp;//returning temp node
 
 }
 
-/*Function to create the directory tree, which is called recursively.
-  Opens the directory specified, checks iteratively if contents are files
-  or directories : if directory found, recursively calls the function to
-  parse through the directory files.
-  Argument(s):
-  	root_name(char): contains name of specified directory
-  Returns: Root of created directory tree
-*/
-node* create_tree(char *root_name)//here root name gets the current directory name
+
+
+//this function to create a dir tree which is called recursively
+node* create_tree(char *root_name)//here root name here has the name of specified directory
 {
 	//DIR *opendir(const char *dirname) this opens the directory stream corresponding to the root_name returns
 	//a pointer of dir type if operation is successful else NULL returned
@@ -48,48 +43,54 @@ node* create_tree(char *root_name)//here root name gets the current directory na
 	struct dirent *dr = NULL;
 	node *root,*temp,*temp1 ;
 	root = temp = temp1 = NULL;
-	char *name = (char *)malloc(sizeof(char)*1000);//ALLOCATING SPACE FOR NAME
+	char *name = (char *)malloc(sizeof(char)*MAX);//ALLOCATING SPACE FOR NAME
 	
 
-	//Checks to see if directory exists if doesnt return
-	if(dir == NULL)
-	{
-		//printf("Error in opening file");
+	//if error in opening the dir it points to null we print error and return null
+	if(dir == NULL) {
+		printf("Error\n");
 		return NULL;
 	}
 
 	//While loop runs until all contents of the directory have been checked
 	while((dr = readdir(dir)) != NULL) {
-			//Every directory has two directories called "." and "..", which stand
-			//for present working directory and root directory which cannot be parsed further
-			if(strcmp((dr->d_name),".")!=0 && strcmp((dr->d_name),"..") != 0) {
-				temp = create_node(dr->d_name);
+
+			/*Every directory has two directories called "." and ".." 
+			which stands for present working directory and root directory
+			 which cannot be parsed further*/
+
+			if(strcmp((dr->d_name),".") != 0 && strcmp((dr->d_name),"..") != 0) {
+
+				temp = create_node(dr->d_name);//creating node for each file/directory
 			}
 			else {
-				temp=NULL;
-				continue;
+
+				temp = NULL;// otherwise if no further directories can be parsed temp is said to null
+				continue;//force iteration here 
 			}
 
-			if(temp1!=NULL) {
+			if(temp1 != NULL) {
+
 				temp1->nextFile = temp;
 
 			}
 
 			else {
-				root = temp;
+				root = temp;//if its the first node it is set to the value of temp
 			}
 
 			//Checking if it's a directory
 			if((dr->d_type) == DT_DIR) {//if the dr type is directory make isdir 1 and make name root_name
 				temp->isdir=1;
 				strcpy(name,root_name);
-				temp->nextDirectory = create_tree((strcat((strcat(name,"/")),dr->d_name)));
+				temp->nextDirectory = create_tree((strcat((strcat(name,"/")),dr->d_name)));//recurively calling create tree
+				//and updating the path being passed to create_tree
 
 			}
 
 			else {
-				temp->isdir = 0;
-				temp->nextDirectory = NULL;
+				temp->isdir = 0;//if it isnt a directory isdir set to 0
+				temp->nextDirectory = NULL;//and nextDirectory set to NULL
 
 			}
 		

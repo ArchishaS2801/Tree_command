@@ -149,7 +149,7 @@ void get_username(char* path) {
 	printf("USERNAME : %s\n",pwuser->pw_name);
 }
 
-void print_specified_path(char *basePath) {
+void print_no_indentation(char *basePath) {
 	
     char path[10000];
     struct dirent *dp;
@@ -168,7 +168,7 @@ void print_specified_path(char *basePath) {
             strcat(path, "/");
             strcat(path, dp->d_name);
 
-            print_specified_path(path);
+            print_no_indentation(path);
         }
     }
 

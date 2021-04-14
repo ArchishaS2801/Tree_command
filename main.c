@@ -28,7 +28,7 @@ int main(int argc,char *argv[]) {
 
 	    printf("Enter path to list files: ");
           scanf("%s", name);
-          print_specified_path(name);
+          print_no_indentation(name);
 
 
     }

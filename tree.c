@@ -38,7 +38,7 @@ node* create_node(char* n) {
   	root_name(char): contains name of specified directory
   Returns: Root of created directory tree
 */
-tree* create_tree(char *root_name)//here root name gets the current directory name
+node* create_tree(char *root_name)//here root name gets the current directory name
 {
 	//DIR *opendir(const char *dirname) this opens the directory stream corresponding to the root_name returns
 	//a pointer of dir type if operation is successful else NULL returned
@@ -47,7 +47,7 @@ tree* create_tree(char *root_name)//here root name gets the current directory na
 
 	//struct dirent contains various members which I have used in the code d_type,d_name etc
 	struct dirent *dr = NULL;
-	tree *root,*temp,*temp1 ;
+	node *root,*temp,*temp1 ;
 	root = temp = temp1 = NULL;
 	char *name = (char *)malloc(sizeof(char)*1000);//ALLOCATING SPACE FOR NAME
 	

@@ -8,11 +8,9 @@ typedef struct node{
     long filesize;
 }node;
 
-typedef node tree;
-
 
 node* create_node(char* n);
-tree* create_tree(char *root);
+node* create_tree(char *root);
 void print_tree(node *start);
 void get_username(char* path);
 void print_specified_path(char *basePath);

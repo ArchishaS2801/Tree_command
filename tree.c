@@ -5,7 +5,6 @@
 #include<sys/stat.h>
 #include<pwd.h>
 #include "tree.h"
-#include <time.h>
 #define ANSI_COLOR_MAGENTA "\x1b[35m"
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
@@ -183,7 +182,7 @@ void print_no_indentation(char *basePath) {
 void print_tree_color(node *start) {
 		
 		node *temp = start;
-		
+
 		if(start == NULL)
 			return;
 

@@ -10,7 +10,7 @@ int main(int argc,char *argv[]) {
 
       // This has been used to store the path name 
 
-      char name[100000];
+      char name[MAX];
       //when only ./archishatree is arg passed it prints all the files/folders in current directory
       if(argc==1) {
 

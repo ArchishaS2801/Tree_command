@@ -1,4 +1,4 @@
-#define MAX 1000
+#define MAX 100000
 
 //This is the adt of the node 
 typedef struct node{

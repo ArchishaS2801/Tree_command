@@ -26,7 +26,6 @@ node* create_node(char* n) {
 	temp->name = n;
 	temp->nextDirectory = NULL;
 	temp->nextFile = NULL;
-    temp->filesize = file_size(n);
     return temp;
 }
 
@@ -296,116 +295,6 @@ void print_tree_color(node *start) {
 }
 
 
-void print_color_without_indentation(char *basePath) {
-	
-    char path[10000];
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
-    if (!dir)
-        return;
-
-    while ((dp = readdir(dir)) != NULL )
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
-        {
-
-			  //Audio file format extension color = RESET
-		if(strstr(dp->d_name,".aif") || strstr(dp->d_name,".cda") || strstr(dp->d_name,".mid") || 
-
-		strstr(dp->d_name,".mp3") || strstr(dp->d_name,".mpa") || strstr(dp->d_name,".ogg") ||
-
-		strstr(dp->d_name,".wav") || strstr(dp->d_name,".wma") || strstr(dp->d_name,".wpl") )	{
-
-			printf("%s%s\n",ANSI_COLOR_RESET,dp->d_name);
-
-		}
-
-		//Compressed file extensions color = YELLOW
-		else if(strstr(dp->d_name,".7z") || strstr(dp->d_name,".arj") || strstr(dp->d_name,".deb") || 
-
-		strstr(dp->d_name,".pkg") || strstr(dp->d_name,".rar") || strstr(dp->d_name,".rpm") ||
-
-		strstr(dp->d_name,".tar.gz") || strstr(dp->d_name,".z") || strstr(dp->d_name,".zip") )	{
-
-			printf("%s%s\n",ANSI_COLOR_YELLOW,dp->d_name);
-
-		}
-
-		//Disc/media/data and database file extensions color = MAGENTA
-		else if(strstr(dp->d_name,".csv") || strstr(dp->d_name,".dat") || strstr(dp->d_name,".db") || 
-
-		strstr(dp->d_name,".sav") || strstr(dp->d_name,".mdb") || strstr(dp->d_name,".log") ||
-
-		strstr(dp->d_name,".sql") || strstr(dp->d_name,".tar") || strstr(dp->d_name,".xml") || 
-
-		strstr(dp->d_name,".bin") || strstr(dp->d_name,".dmg") || strstr(dp->d_name,".iso") || 
-
-		strstr(dp->d_name,".toast") || strstr(dp->d_name,".vcd") || strstr(dp->d_name,".o") || strstr(dp->d_name,".c"))	{
-
-			printf("%s%s\n",ANSI_COLOR_MAGENTA,dp->d_name);
-
-		}
-
-		//executable file extensions and programming files
-
-		else if(strstr(dp->d_name,".apk") || strstr(dp->d_name,".bat") || strstr(dp->d_name,".bin") || 
-
-		strstr(dp->d_name,".cgi") || strstr(dp->d_name,".com") || strstr(dp->d_name,".exe") ||
-
-		strstr(dp->d_name,".msi") || strstr(dp->d_name,".jar") || strstr(dp->d_name,".gadget") || 
-
-		strstr(dp->d_name,".py") || strstr(dp->d_name,".wsf") || strstr(dp->d_name,".c") || 
-
-		strstr(dp->d_name,".h") || strstr(dp->d_name,".cpp") || strstr(dp->d_name,".java") 
-		
-		|| strstr(dp->d_name,".php") || strstr(dp->d_name,".py") || strstr(dp->d_name,".sh")
-		
-		|| strstr(dp->d_name,".swift") || strstr(dp->d_name,".vb") || strstr(dp->d_name,".js")
-		
-		|| strstr(dp->d_name,".ts"))	{
-
-			printf("%s%s\n",ANSI_COLOR_RED,dp->d_name);
-
-		}
-
-		else if(strstr(dp->d_name,".html") || strstr(dp->d_name,".pdf") || strstr(dp->d_name,".xls") || 
-
-		strstr(dp->d_name,".ods") || strstr(dp->d_name,".ppt") || strstr(dp->d_name,".pptx") ||
-
-		strstr(dp->d_name,".txt") || strstr(dp->d_name,"jpg") || strstr(dp->d_name,".png") || strstr(dp->d_name,".jpeg") || 
-
-		strstr(dp->d_name,".svg") || strstr(dp->d_name,".doc") || strstr(dp->d_name,".docx") || 
-
-		strstr(dp->d_name,".class") || strstr(dp->d_name,".css") || strstr(dp->d_name,".json") 
-		
-		|| strstr(dp->d_name,".iml") || strstr(dp->d_name,".bash") || strstr(dp->d_name,".o")
-		
-		|| strstr(dp->d_name,".layout") || strstr(dp->d_name,".cbp") || strstr(dp->d_name,".depend")
-		
-		|| strstr(dp->d_name,".ts")){
-
-			printf("%s%s\n",ANSI_COLOR_GREEN,dp->d_name);
-		}
-
-
-
-		else{
-			printf("%s%s\n",ANSI_COLOR_BLUE,dp->d_name);
-		}
-           // printf("%s\n", dp->d_name);
-            strcpy(path, basePath);
-            strcat(path, "/");
-            strcat(path, dp->d_name);
-
-            print_specified_path(path);
-        }
-    }
-
-    closedir(dir);
-}
-
 
 
 void print_tree_media(node* start){
@@ -560,48 +449,6 @@ void print_tree_programs(node *start){
 
 }
 
-long file_size(char* path) {
-
-        struct stat stats;
-        stat(path, &stats);
-        return stats.st_size;
-}
-
-
-void print_file_size(char *basePath) {
-	
-    char path[10000];
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
-    if (!dir)
-        return;
-
-    while ((dp = readdir(dir)) != NULL)
-    {
-        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
-        {
-            printf("%s%s ", ANSI_COLOR_RESET,dp->d_name);
-            strcpy(path, basePath);
-            strcat(path, "/");
-            strcat(path, dp->d_name);
-			if(dp->d_type == DT_REG){
-				
-				printf(": %s%ld bytes  ",ANSI_COLOR_BLUE,file_size(path));
-			}
-			else{
-				printf(" ");
-			}
-			printf("\n");
-
-            print_file_size(path);
-        }
-    }
-
-    closedir(dir);
-}
-
 
 void print_match_pattern(node *start,char *pattern){
 
@@ -620,10 +467,12 @@ void print_match_pattern(node *start,char *pattern){
 			printf("%s",s);
 		if(count > 0)
 			printf("%s",s1);
+			
 		
-      if(strstr(temp->name,pattern ))	{
+      if(strstr(temp->name,pattern ) )	{
 
 			printf("%s%s\n",ANSI_COLOR_RESET,temp->name);
+			    
 
 		}
 		else{
@@ -687,4 +536,44 @@ void print_does_not_match_pattern(node *start,char *pattern){
 
 
 }
+
+void print_directories(node *start){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level = count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+      if(temp->isdir)	{
+
+			printf("%s \n",temp->name);
+
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_directories(temp->nextDirectory);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_directories(temp->nextFile);
+
+
+
+}
+
 

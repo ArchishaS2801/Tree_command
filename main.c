@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<unistd.h>
-#include<dirent.h>
+//#include<dirent.h>
 #include<stdlib.h>
 #include<string.h>
 #include "tree.h"
@@ -184,6 +184,7 @@ int main(int argc,char *argv[]) {
           char *pattern = argv[2];
           start->nextDirectory = create_tree(name);
 	    print_does_not_match_pattern(start,pattern);
+          num_dir_files();
           
     }
 

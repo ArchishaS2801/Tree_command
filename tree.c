@@ -13,8 +13,9 @@
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_BLUE    "\x1b[34m"
 
+//globally defining these variables
+
 int count = 0;
-int max = 0;
 int num_dir = 0;
 int num_files = 0;
 
@@ -71,12 +72,12 @@ node* create_tree(char *root_name)//here root name here has the name of specifie
 
 			if(temp1 != NULL) {
 
-				temp1->nextFile = temp;
+				temp1->nextFile = temp;//keeps setting nextfile pointer as temp till temp1 is not null
 
 			}
 
 			else {
-				root = temp;//if its the first node it is set to the value of temp
+				root = temp;//when reaches null set value of root as temp
 			}
 
 			//Checking if it's a directory
@@ -95,50 +96,47 @@ node* create_tree(char *root_name)//here root name here has the name of specifie
 			}
 		
 
-			temp1 = temp;
+			temp1 = temp;//keep setting temp1 as temp
 
 
 	}
 
 return root;
+
 }
 
 
 void print_tree(node *start) {
 
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
 
-		temp->level=count;
-
-		if(count > max)
-			max = count;
-
+		temp->level=  count;//setting level to count which initially is 0
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
-			printf("|_____");
+			printf("|_____");//if file then this indentation
 			
 
-		printf("%s  ",temp->name);
+		printf("%s  ",temp->name);//print name of the given dir/file
 		
        
 		//Checks if it's a directory
 		if(temp->isdir == 1) {
-			num_dir += 1;
-			count++;
-			print_tree(temp->nextDirectory);
+			num_dir += 1;//increament by 1 as temp is a dir
+			count++;//increament count 
+			print_tree(temp->nextDirectory);//recursively print tree for the nextdirectory
 			count--;
 		}
 
-		num_files += 1;
-		print_tree(temp->nextFile);
+		num_files += 1;//increament the num of files
+		print_tree(temp->nextFile);//print tree recursively for next file
 
 
 }
@@ -154,21 +152,26 @@ void get_username(char* path) {
 	printf("USERNAME : %s\n",pwuser->pw_name);
 }
 
-void print_no_indentation(char *basePath) {
+//prints without any indentation
+
+void print_no_indentation(char *basePath) {//passing the base path taken from user
 	
     char path[10000];
 
-    struct dirent *dp;
-    DIR *dir = opendir(basePath);
-
-
+    struct dirent *dp;//defining dp of type struct dirent that has d_name and d_type which will be used ahead
+    DIR *dir = opendir(basePath);//opening the dir of the passed path
+    
+    //if open dir failed control returned 
     if (!dir)
         return;
 
+	
+    //dp keeps reading dir till stream of dir is available
     while ((dp = readdir(dir)) != NULL) {
         if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0) {
 
-            printf("%s\n", dp->d_name);
+            printf("%s\n", dp->d_name);//print d_name of dir
+			//modifying the path being passed recursively to the function
             strcpy(path, basePath);
             strcat(path, "/");
             strcat(path, dp->d_name);
@@ -176,27 +179,26 @@ void print_no_indentation(char *basePath) {
         }
     }
 
-    closedir(dir);
+    closedir(dir);//close dir once job done 
 }
+
+//printing a colorful tree on basis of the extention type
 
 
 void print_tree_color(node *start) {
 		
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level=count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
 			printf("|_____");
@@ -302,26 +304,24 @@ void print_tree_color(node *start) {
 }
 
 
-
+//uses same logic as tree command just prints when the extensions are of type media
+//using strstr
 
 void print_tree_media(node* start){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level=count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
 			printf("|_____");
@@ -337,44 +337,42 @@ void print_tree_media(node* start){
 		{
 
 			printf("%s%s\n",ANSI_COLOR_GREEN,temp->name);
+			num_files += 1;
 		}
 		else{
 			printf("%s",ANSI_COLOR_RED);
 		}
 
 		if(temp->isdir==1) {
-			num_dir += 1;
+			num_dir += 1;//increament number of dirs in tree
 			count++;
 			print_tree_media(temp->nextDirectory);
 			count--;
 		}
 
-		num_files += 1;
 		print_tree_media(temp->nextFile);
 
 
 }
 
-
+//uses same logic as tree command just prints when the extensions are of type zip
+//using strstr
 
 void print_tree_compressed(node *start){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level = count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
 			printf("|_____");
@@ -386,6 +384,7 @@ void print_tree_compressed(node *start){
 		strstr(temp->name,".tar.gz") || strstr(temp->name,".z") || strstr(temp->name,".zip") )	{
 
 			printf("%s%s\n",ANSI_COLOR_YELLOW,temp->name);
+			num_files += 1;
 
 		}
 		else{
@@ -393,37 +392,37 @@ void print_tree_compressed(node *start){
 		}
 
 		if(temp->isdir==1) {
-			num_dir += 1;
-			count++;
+			num_dir += 1;//increament number of dirs in tree
+	    	count++;
 			print_tree_compressed(temp->nextDirectory);
 			count--;
 		}
 
-		num_files += 1;
 		print_tree_compressed(temp->nextFile);
 
 
 
 }
 
+//uses same logic as tree command just prints when the extensions are of type program 
+//using strstr
+
 
 void print_tree_programs(node *start){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level=count;
 
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
 			printf("|_____");
@@ -443,6 +442,7 @@ void print_tree_programs(node *start){
 		strstr(temp->name,".vb") || strstr(temp->name,".js" )){
 
 			printf("%s%s",ANSI_COLOR_RESET,temp->name);
+			num_files += 1;
 			
 
 		}
@@ -451,13 +451,12 @@ void print_tree_programs(node *start){
 		}
 
 		if(temp->isdir==1) {
-			num_dir += 1;
+            num_dir += 1;//increament number of dirs in tree
 			count++;
 			print_tree_programs(temp->nextDirectory);
 			count--;
 		}
 
-		num_files += 1;
 		print_tree_programs(temp->nextFile);
 
 
@@ -468,45 +467,42 @@ void print_tree_programs(node *start){
 void print_match_pattern(node *start,char *pattern){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level = count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
-			printf("|_____");
+			printf("|_____");//if file provide this indentation
 			
 		
-      if(strstr(temp->name,pattern ) )	{
+      if(strstr(temp->name,pattern ) )	{//if the name of the node matches pattern print the name
 
 			printf("%s%s\n",ANSI_COLOR_RESET,temp->name);
 			    
 
 		}
-		else{
-			printf("%s",ANSI_COLOR_MAGENTA);
+		else{//else dont print node 
+			printf("%s",ANSI_COLOR_MAGENTA);//added color for differentiation
 		}
 
 		if(temp->isdir==1) {
-			num_dir += 1;
+			num_dir += 1;//increament the number of directories by one
 			count++;
-			print_match_pattern(temp->nextDirectory,pattern);
+			print_match_pattern(temp->nextDirectory,pattern);//recursively calling for next node dir
 			count--;
 		}
 
 		num_files += 1;
-		print_match_pattern(temp->nextFile,pattern);
+		print_match_pattern(temp->nextFile,pattern);//recursively calling for next node file
 
 
 
@@ -517,25 +513,22 @@ void print_match_pattern(node *start,char *pattern){
 void print_does_not_match_pattern(node *start,char *pattern){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 		if(start == NULL)
-			return;
+			return;// if no root node exists return
 
-
+        //setting level to count which initially is 0
 		temp->level = count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
-			printf("|_____");
+			printf("|_____");//if file then provide this indentation
 		
-      if(!strstr(temp->name,pattern ))	{
+      if(!strstr(temp->name,pattern ))	{// if the name of dir d.n match pattern then print
 
 			printf("%s%s\n",ANSI_COLOR_RESET,temp->name);
 
@@ -545,62 +538,61 @@ void print_does_not_match_pattern(node *start,char *pattern){
 		}
 
 		if(temp->isdir==1) {
-			num_dir += 1;
+			num_dir += 1;//increament number of directories in the tree
 			count++;
-			print_does_not_match_pattern(temp->nextDirectory,pattern);
+			print_does_not_match_pattern(temp->nextDirectory,pattern);//recursively call for nextDirectory node
 			count--;
 		}
 
-		num_files += 1;
-		print_does_not_match_pattern(temp->nextFile,pattern);
+		num_files += 1;//increament number of files in tree
+		print_does_not_match_pattern(temp->nextFile,pattern);//recursively call this function for next file node
 	
 
 
 
 }
 
+//prints all the directories
 void print_directories(node *start){
 
 	
-		node *temp = start;
+		node *temp = start;//start is the root node from where tree is to be printed 
 
 		if(start == NULL)
 			return;
 
-
+        //setting level to count which initially is 0
 		temp->level = count;
-
-		if(count > max)
-			max = count;
 
 		printf("\n");
 
 		for(int i = 0;i < count-1;i++)
-			printf("|   ");
+			printf("|   ");// if directory this indentation provided
 
 		if(count > 0)
-			printf("|_____");
+			printf("|_____");//if file this indentation provided
 		
       if(temp->isdir) {
 
-			printf("%s \n",temp->name);
+			printf("%s \n",temp->name);//if it is a directory then only name is printed
 
 		}
 
 		if(temp->isdir==1) {
 
-			num_dir += 1;
+			num_dir += 1;//increament number of dirs in tree
 			count++;
-			print_directories(temp->nextDirectory);
+			print_directories(temp->nextDirectory);//recursively keep calling this function if temp is dir
 			count--;
 		}
 
-		num_files += 1;
-		print_directories(temp->nextFile);
+		num_files += 1;//increament number of dirs in tree
+		print_directories(temp->nextFile);//recursively call for next file
 
 
 
 }
+//function to print number of dirs and files in the tree printed
 
 void num_dir_files(){
 

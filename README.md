@@ -1,4 +1,4 @@
-TREE COMMAND :-
+<b>TREE COMMAND :-</b>
 
 1.)Tree recursively displays all the files/folders in a tree like format.
 
@@ -6,7 +6,7 @@ TREE COMMAND :-
 
 
 
-ALL FLAGS I HAVE INCLUDED :-
+<b>ALL FLAGS I HAVE INCLUDED :-</b>
 
 -noIndentation : written on cmd this lists all the files and folders in the path specified by the user without any indentation
 

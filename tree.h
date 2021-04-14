@@ -24,6 +24,8 @@ void print_tree_programs(node *start);
 long file_size(char* path);
 void print_file_size(char *basePath);
 void print_match_pattern(node *start,char *pattern);
+void print_does_not_match_pattern(node *start,char *pattern);
+
 
 
 

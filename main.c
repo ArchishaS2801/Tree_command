@@ -143,15 +143,17 @@ int main(int argc,char *argv[])
           
     }
 
+    if(argc >=2 && strcmp(argv[1],"-Ipattern") == 0){
 
-
-
-
-
-   
-    
-
-    
+          node *start=create_node(".");
+	    start->isdir=1;
+          printf("Enter the path to list all files : ");
+          scanf("%s", name);
+          char *pattern = argv[2];
+          start->nextDirectory = create_tree(name);
+	    print_does_not_match_pattern(start,pattern);
+          
+    }
 
    
 

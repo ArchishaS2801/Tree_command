@@ -26,7 +26,7 @@ node* create_node(char* n) {
 	temp->name = n;
 	temp->nextDirectory = NULL;
 	temp->nextFile = NULL;
-	temp->filesize = file_size(n);
+    temp->filesize = file_size(n);
     return temp;
 }
 
@@ -644,3 +644,47 @@ void print_match_pattern(node *start,char *pattern){
 
 
 }
+
+
+void print_does_not_match_pattern(node *start,char *pattern){
+
+	char *s="|    ",*s1="|_____";
+		node *temp = start;
+		if(start == NULL)
+			return;
+
+
+		temp->level = count;
+
+		if(count > max)
+			max = count;
+		printf("\n");
+		for(int i = 0;i < count-1;i++)
+			printf("%s",s);
+		if(count > 0)
+			printf("%s",s1);
+		
+      if(!strstr(temp->name,pattern ))	{
+
+			printf("%s%s\n",ANSI_COLOR_RESET,temp->name);
+
+		}
+		else{
+			printf("%s",ANSI_COLOR_MAGENTA);
+		}
+
+		if(temp->isdir==1)
+		{
+			dir_in_path += 1;
+			count++;
+			print_does_not_match_pattern(temp->nextDirectory,pattern);
+			count--;
+		}
+
+		files_in_path += 1;
+		print_does_not_match_pattern(temp->nextFile,pattern);
+
+
+
+}
+

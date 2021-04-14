@@ -4,36 +4,49 @@
 #include<stdlib.h>
 #include<string.h>
 #include "tree.h"
-int main(int argc,char *argv[])
-{
-    char name[100000];
-    if(argc==1) {
-    node *start=create_node(".");
-	start->isdir=1;
-    start->nextDirectory = create_tree(getcwd(0,0));
-	print_tree(start);
+
+
+
+int main(int argc,char *argv[]) {
+
+      // This has been used to store the path name 
+
+      char name[100000];
+      //when only ./archishatree is arg passed it prints all the files/folders in current directory
+      if(argc==1) {
+
+            node *start=create_node(".");//creating node
+	      start->isdir=1;//initial node is directory so setting it as one
+            start->nextDirectory = create_tree(getcwd(0,0));//getcwd gets the current working directory
+       	print_tree(start);//print the tree with indentation
     
+      }
 
-    }
-
+    /*when ./archishatree -noIndentation written on cmd this lists all the files and folders in the path 
+    specified by the user without any indentation*/
     if(argc >= 2 && strcmp(argv[1],"-noIndentation") == 0){
 
 	    printf("Enter path to list files: ");
-        scanf("%s", name);
-        print_specified_path(name);
+          scanf("%s", name);
+          print_specified_path(name);
 
 
     }
+
+    /*when ./archishatree -i written on cmd this lists all the files and folders in the path 
+    specified by the user with indentation*/
 
     if(argc >=2 && strcmp(argv[1],"-i") == 0){
 
-      node *start=create_node(".");
-	start->isdir=1;
+      node *start=create_node(".");//creates node
+	start->isdir=1;//setting start as a directory
       printf("Enter path to list files: ");
       scanf("%s", name);
-      start->nextDirectory = create_tree(name);
-	print_tree(start);
+      start->nextDirectory = create_tree(name);//creating a tree from the path that is specified
+	print_tree(start);//printing tree with indentation
     }
+
+    /*when ./archishatree -u  written on cmd this lists all the user details*/
 
     if(argc >= 2 && strcmp(argv[1],"-u") == 0){
 
@@ -43,7 +56,9 @@ int main(int argc,char *argv[])
           printf("\n");
     }
 
+     /*when ./archishatree -help  written on cmd this lists all flags to help the user*/
 
+   
 
     if(argc >=2 && strcmp(argv[1],"-help") == 0){
 
@@ -65,6 +80,8 @@ int main(int argc,char *argv[])
 
     }
 
+    //This displays the version of the tree
+
     if(argc >= 2 && strcmp(argv[1],"-v") == 0){
 
           printf("\ntree 1.12.1 \n");
@@ -74,6 +91,9 @@ int main(int argc,char *argv[])
 
     }
 
+
+     /*when ./archishatree -c written on cmd this lists all the files and folders in the path 
+       specified by the user with indentation and color according to the file type*/
 
     if(argc >=2 && strcmp(argv[1],"-c") == 0){
          
@@ -85,6 +105,9 @@ int main(int argc,char *argv[])
 	    print_tree_color(start);
     }
 
+     /*when ./archishatree -mediaFiles written on cmd this lists all the files and folders in the path 
+    specified by the user which are of media type for eg-jpeg,mp4 etc with indententation*/
+    
 
     if(argc >=2 && strcmp(argv[1],"-mediaFiles") == 0){
 
@@ -97,6 +120,9 @@ int main(int argc,char *argv[])
           
     }
 
+    /*when ./archishatree -compressedFiles written on cmd this lists all the files and folders in the path 
+    specified by the user which are of compressed type for eg-.zip,rar etc with indententation*/
+
     if(argc >=2 && strcmp(argv[1],"-compressedFiles") == 0){
 
           node *start=create_node(".");
@@ -108,6 +134,10 @@ int main(int argc,char *argv[])
           
     }
 
+     /*when ./archishatree -programFiles written on cmd this lists all the files and folders in the path 
+    specified by the user which are of program type for eg-.c,.o,.js  etc with indententation*/
+
+
     if(argc >=2 && strcmp(argv[1],"-programFiles") == 0){
 
           node *start=create_node(".");
@@ -118,6 +148,9 @@ int main(int argc,char *argv[])
 	    print_tree_programs(start);
           
     }
+
+    /*when ./archishatree -matchPattern written on cmd this lists all the files and folders in the path 
+    specified by the user which have any portion of the name that matches specified pattern with indententation*/
 
      if(argc >=2 && strcmp(argv[1],"-matchpattern") == 0){
 
@@ -131,6 +164,10 @@ int main(int argc,char *argv[])
           
     }
 
+    /*when ./archishatree -IPattern written on cmd this lists all the files and folders in the path 
+    specified by the user which have any portion of the name that does not matche specified pattern
+     with indententation*/
+
     if(argc >=2 && strcmp(argv[1],"-Ipattern") == 0){
 
           node *start=create_node(".");
@@ -142,6 +179,9 @@ int main(int argc,char *argv[])
 	    print_does_not_match_pattern(start,pattern);
           
     }
+
+    /*when ./archishatree -d written on cmd this lists all the folders in the path 
+    specified by the user with indentation*/
 
     if(argc >=2 && strcmp(argv[1],"-d") == 0){
 

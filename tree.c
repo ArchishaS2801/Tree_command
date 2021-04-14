@@ -16,8 +16,8 @@
 
 int count = 0;
 int max = 0;
-int dir_in_path = 0;
-int files_in_path = 0;
+int num_dir = 0;
+int num_files = 0;
 
 //to create new node in tree
 node* create_node(char* n) {
@@ -127,13 +127,13 @@ void print_tree(node *start) {
 		//Checks if it's a directory
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_tree(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_tree(temp->nextFile);
 
 
@@ -284,13 +284,13 @@ void print_tree_color(node *start) {
 		//Checks if it's a directory
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_tree_color(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_tree_color(temp->nextFile);
 
 }
@@ -334,13 +334,13 @@ void print_tree_media(node* start){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_tree_media(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_tree_media(temp->nextFile);
 
 
@@ -381,13 +381,13 @@ void print_tree_compressed(node *start){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_tree_compressed(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_tree_compressed(temp->nextFile);
 
 
@@ -437,13 +437,13 @@ void print_tree_programs(node *start){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_tree_programs(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_tree_programs(temp->nextFile);
 
 
@@ -482,13 +482,13 @@ void print_match_pattern(node *start,char *pattern){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_match_pattern(temp->nextDirectory,pattern);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_match_pattern(temp->nextFile,pattern);
 
 
@@ -526,13 +526,13 @@ void print_does_not_match_pattern(node *start,char *pattern){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_does_not_match_pattern(temp->nextDirectory,pattern);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_does_not_match_pattern(temp->nextFile,pattern);
 	
 
@@ -566,13 +566,13 @@ void print_directories(node *start){
 
 		if(temp->isdir==1)
 		{
-			dir_in_path += 1;
+			num_dir += 1;
 			count++;
 			print_directories(temp->nextDirectory);
 			count--;
 		}
 
-		files_in_path += 1;
+		num_files += 1;
 		print_directories(temp->nextFile);
 
 
@@ -582,8 +582,8 @@ void print_directories(node *start){
 void num_dir_files(){
 
 
-	printf("\nThe number of directories : %d \n",dir_in_path);
-	printf("The number of files : %d \n",files_in_path);
+	printf("\nThe number of directories : %d \n",num_dir);
+	printf("The number of files : %d \n",num_files);
 	     
 }
 

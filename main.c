@@ -19,6 +19,7 @@ int main(int argc,char *argv[]) {
 	      start->isdir=1;//initial node is directory so setting it as one
             start->nextDirectory = create_tree(getcwd(0,0));//getcwd gets the current working directory
        	print_tree(start);//print the tree with indentation
+            num_dir_files();
     
       }
 
@@ -44,6 +45,7 @@ int main(int argc,char *argv[]) {
       scanf("%s", name);
       start->nextDirectory = create_tree(name);//creating a tree from the path that is specified
 	print_tree(start);//printing tree with indentation
+      num_dir_files();
     }
 
     /*when ./archishatree -u  written on cmd this lists all the user details*/
@@ -103,6 +105,7 @@ int main(int argc,char *argv[]) {
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_tree_color(start);
+          num_dir_files();
     }
 
      /*when ./archishatree -mediaFiles written on cmd this lists all the files and folders in the path 
@@ -117,6 +120,7 @@ int main(int argc,char *argv[]) {
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_tree_media(start);
+          num_dir_files();
           
     }
 
@@ -131,6 +135,7 @@ int main(int argc,char *argv[]) {
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_tree_compressed(start);
+          num_dir_files();
           
     }
 
@@ -146,6 +151,7 @@ int main(int argc,char *argv[]) {
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_tree_programs(start);
+          num_dir_files();
           
     }
 
@@ -161,6 +167,7 @@ int main(int argc,char *argv[]) {
           char *pattern = argv[2];
           start->nextDirectory = create_tree(name);
 	    print_match_pattern(start,pattern);
+          num_dir_files();
           
     }
 
@@ -191,6 +198,7 @@ int main(int argc,char *argv[]) {
           scanf("%s", name);
           start->nextDirectory = create_tree(name);
 	    print_directories(start);
+          num_dir_files();
           
     }
 

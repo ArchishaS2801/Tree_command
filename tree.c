@@ -136,6 +136,7 @@ void print_tree(node *start) {
 		files_in_path += 1;
 		print_tree(temp->nextFile);
 
+
 }
 //function to get the username for the u flag
 
@@ -492,6 +493,7 @@ void print_match_pattern(node *start,char *pattern){
 
 
 
+
 }
 
 
@@ -532,6 +534,7 @@ void print_does_not_match_pattern(node *start,char *pattern){
 
 		files_in_path += 1;
 		print_does_not_match_pattern(temp->nextFile,pattern);
+	
 
 
 
@@ -574,6 +577,14 @@ void print_directories(node *start){
 
 
 
+}
+
+void num_dir_files(){
+
+
+	printf("\nThe number of directories : %d \n",dir_in_path);
+	printf("The number of files : %d \n",files_in_path);
+	     
 }
 
 

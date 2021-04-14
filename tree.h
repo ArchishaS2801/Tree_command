@@ -40,6 +40,8 @@ void print_match_pattern(node *start,char *pattern);
 void print_does_not_match_pattern(node *start,char *pattern);
 //prints tree from the start node with indentation only of type dir
 void print_directories(node *start);
+//prints all the number of files and directories
+void num_dir_files();
 
 
 

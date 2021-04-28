@@ -10,26 +10,26 @@
 
 # FLAGS :-
 
-<b>-noIndentation :</b> written on cmd this lists all the files and folders in the path specified by the user without any indentation
+<b>-noIndentation :</b> lists all the files and folders in the path specified by the user without any indentation
 
-<b>-i :</b> written on cmd this lists all the files and folders in the path specified by the user with indentation
+<b>-i :</b> lists all the files and folders in the path specified by the user with indentation
 
-<b>-u :</b> written on cmd this lists all the user details
+<b>-u :</b> lists all the user details
 
-<b>-help :</b> written on cmd this lists all flags to help the user
+<b>-help :</b> lists all flags to help the user
 
 <b>-v :</b> version of the tree
 
-<b>-c :</b> written on cmd this lists all the files and folders in the path specified by the user with indentation and color according to the file type
+<b>-c :</b> lists all the files and folders in the path specified by the user with indentation and color according to the file type
 
-<b>-mediaFiles :</b> written on cmd this lists all the files and folders in the path specified by the user which are of media type for eg-jpeg,mp4 etc with indententation
+<b>-mediaFiles :</b> lists all the files and folders in the path specified by the user which are of media type for eg-jpeg,mp4 etc with indententation
 
-<b>-compressedFiles :</b> written on cmd this lists all the files and folders in the path specified by the user which are of compressed type for eg-.zip,rar etc with indententation
+<b>-compressedFiles :</b> lists all the files and folders in the path specified by the user which are of compressed type for eg-.zip,rar etc with indententation
 
-<b>-programFiles :</b> written on cmd this lists all the files and folders in the path specified by the user which are of program type for eg-.c,.o,.js  etc with indententation
+<b>-programFiles :</b> lists all the files and folders in the path specified by the user which are of program type for eg-.c,.o,.js  etc with indententation
 
-<b>-matchPattern :</b> written on cmd this lists all the files and folders in the path specified by the user which have any portion of the name that matches specified pattern with indententation
+<b>-matchPattern [pattern]:</b> lists all the files and folders in the path specified by the user which have any portion of the name that matches specified pattern with indententation
 
-<b>-IPattern :</b> written on cmd this lists all the files and folders in the path specified by the user which have any portion of the name that does not matche specified pattern with indententation
+<b>-IPattern [pattern]:</b> lists all the files and folders in the path specified by the user which have any portion of the name that does not matche specified pattern with indententation
 
-<b>-d :</b> List directories only in tree format.
+<b>-d :</b> Lists all directories in tree format.

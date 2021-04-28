@@ -1,4 +1,4 @@
-#TREE COMMAND :-
+# TREE COMMAND :-
 
 
 
@@ -8,7 +8,7 @@
 
 
 
-#ALL FLAGS I HAVE INCLUDED :-
+# FLAGS :-
 
 <b>-noIndentation :</b> written on cmd this lists all the files and folders in the path specified by the user without any indentation
 
